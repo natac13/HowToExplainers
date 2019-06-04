@@ -11,8 +11,11 @@ To active the `node` user in the Dockerfile use:
 USER node
 ```
 Then the `CDM`, `RUN` and `ENTRYPOINT` commands will be run with under the `node` user. **Every** other command is still executed by the `root` user. Therefore I will have to adjust permission on folder/files created by `WORKDIR` and other such commands.
+`DIR` and `COPY` use:
 
-To get around `WORKDIR` and `COPY` use:
 ```
-RUN mkdir -p /path/to/directory && chown -R node:node .
+RUN mkdir -p /path/to && chown -R node:node /path/to
+
+// To get around WORKDIR creating the folder as root 
+
 COPY --chown node:node ./ ./
