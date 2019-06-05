@@ -85,3 +85,39 @@ docker network create --driver overlay <name of network>
 ```
 
 This network allows the nodes of the swarm to talk to each other as if they were on the same machine/VPS/server.
+
+# How To Start a Swarm
+
+Have nodes that can communicate with each other over the linked ports: https://www.bretfisher.com/docker-swarm-firewall-ports/
+
+**Run**
+```
+docker swarm init --advertise-addr <IP address>
+```
+
+Can add `workers` or `managers` with the **swarm token**
+```
+docker swarm join-token manager|worker
+```
+
+**See available nodes**
+```
+docker node ls
+```
+
+### Example Manually Creating Docker Services
+
+```bash
+docker network create --driver overlay backend
+docker network create --driver overlay frontend
+
+docker service create --name vote --network frontend --replicas 2 -p 80:80 dockersamples/examplevotingapp_vote:before
+
+docker service create --name redis --network frontend redis:3.2
+
+docker service create --name db --network backend --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:9.4
+
+docker service create --name result --network backend -p 5001:80 dockersamples/examplevotingapp_result:before
+
+docker service create --name worker --network frontend --network backend dockersamples/examplevotingapp_worker
+```
