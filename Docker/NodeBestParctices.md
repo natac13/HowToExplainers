@@ -19,3 +19,14 @@ RUN mkdir -p /path/to && chown -R node:node /path/to
 // To get around WORKDIR creating the folder as root 
 
 COPY --chown node:node ./ ./
+```
+
+## `node_modules` Executables
+
+When I have a `node_modules` executable that I need to `RUN` or `CMD` in the `Dockerfile` I will have to prefix the package name with the relative path: `./node_modules/.bin/<package>` **UNLESS** I have the following `ENV` in the Dockerfile
+
+```
+ENV PATH /path/to/app/directory/node_modules/.bin:$PATH
+```
+
+which will add all the `node_modules` executables to the PATH environment variable of the shell.
