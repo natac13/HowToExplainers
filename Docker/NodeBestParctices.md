@@ -30,3 +30,10 @@ ENV PATH /path/to/app/directory/node_modules/.bin:$PATH
 ```
 
 which will add all the `node_modules` executables to the PATH environment variable of the shell.
+
+## Build Kit
+
+To enable the new buildkit prefix a build command with
+```bash
+DOCKER_BUILDKIT=1 docker build -t <name> --target <buildStage> .
+```

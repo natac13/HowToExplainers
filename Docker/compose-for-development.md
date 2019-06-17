@@ -116,7 +116,7 @@ app.listen(port, host).then(...)
 Therefore in the `docker.compose.yml` file:
 
 ```yml
-version: "2.4"
+version: '2.4'
 
 services:
   app:
@@ -125,7 +125,7 @@ services:
       context: .
       target: dev
     # Tini
-    init: true 
+    init: true
     ports:
       - 3000:3000
     volumes:
@@ -135,6 +135,5 @@ services:
     # env_file:
     #   - .env
     environment:
-      - HOST=${HOST:-0.0.0.0}
-
+      HOST: ${HOST:-0.0.0.0}
 ```
