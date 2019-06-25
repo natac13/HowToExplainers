@@ -18,3 +18,7 @@ _Very_ fast queries. Need to include in the query and the project all and only t
 ## Regex & Indexes
 
 With a regular index(non-text) on a username field I can use a regex to query; however to ensure that I utlilize the index on username make sure to inculde a hardcoded beginning as to help the index filter out the list.
+
+## Performance
+
+An index wil reduce write speed by about 6%, **however** will increase read speed by a factor of 10!
