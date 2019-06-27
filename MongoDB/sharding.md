@@ -125,17 +125,21 @@ sh.addShard('<replicaSetName>/<host>:<port>')
 
 **What makes a Good Shard Key**
 
-1. High _Cardinality_ = **many** unique shard key values
+1. High _Cardinality_ = **many** unique shard key values.
 2. Frequency = **low repetition** of a given unique shard key value; inserting documents yield many different values on the shard key field.
 3. (NOT) Monotonical change = a field where the input is based on a predictable change. Like a date or stopwatch timer is not a good shard key since the data will group in a periodical way. Therefore **not** monotonical
+
+**Jumpbo Chunks**
+
+A jumbo chunk is one where the upper bound value and the lower bound value are the same. ie `{ lastName: 'Campbell' } -> { lastName: 'Campbell }`. These jumbo chunks are undesirable since they cannot be split up across the shards in the cluster. To avoid these jumbo chunk I can use a more compound shard key. ie `{ lastName: 1, _id: 1 }`. Notice the use of the monotonical \_id field. This is alirght as long as the monotonically changing field is **not** the first field in the shard key.
 
 **Hashed Shard Key**
 
 - Provides a vastly more even distribution of data on a Monotonically changing shard key.
 - Does not work on querys for:
-  -  fast sorts
-  -  targeted ranges of the shard key, since, once hashed the documents will be spread out in a non-linear order.
-  -  Geographically isolated workloads
+  - fast sorts
+  - targeted ranges of the shard key, since, once hashed the documents will be spread out in a non-linear order.
+  - Geographically isolated workloads
 - Hashed shard keys are on single fields, non-array!
 - non-compound index
 
@@ -144,7 +148,6 @@ sh.addShard('<replicaSetName>/<host>:<port>')
 1. Use `sh.enableSharding('<database>')` for the specific db.
 2. `db.collection.createIndex({<key>: < 1|0 >}) // 1 = ascending`
 3. `sh.shardCollection('<db>.<collection>', { <shardKey>: < 1|0 > })` to shard a collection
-
 
 ## Chunks
 
