@@ -160,3 +160,7 @@ A jumbo chunk is one where the upper bound value and the lower bound value are t
 
 - Almost all automatic and will require very minimal input from me.
 - The primary node of the Config Server is responsible for running the **Balancer**
+
+## Mongos
+
+It is a good idea to reduce latency to place the mongos on the same machine as the application.
