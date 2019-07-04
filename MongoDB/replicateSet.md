@@ -180,3 +180,7 @@ mongo --host '<DNS/IP-host>:<port>' -u username -p pass --authenticationDatabase
 - with Secondary reads I may get stale data if the replication has not happened yet. Depends on the delay between the nodes.
 - Nodes separated over the earth will have a higher delay between replication.
 - **only** the `primary` setting will guarantee upto date data; all others have the potential of stale data.
+
+## With Docker 
+
+https://towardsdatascience.com/how-to-deploy-a-mongodb-replica-set-using-docker-6d0b9ac00e49
