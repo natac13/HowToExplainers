@@ -7,6 +7,9 @@
 - Indexes reduce the number of documents MongoDB needs to examine to satisfy a query.
 - Indexes can decrease write, update, and delete performance.
 
+**Rule of Thumb**:
+An index for every query and a query for every index.
+
 ## Important
 
 When building/creating indexes, think **Equality, Sort, Range**. Therefore any query that has the above steps the index field are best place in the bolded order.
